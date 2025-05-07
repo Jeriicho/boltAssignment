@@ -2,7 +2,7 @@
  * Created by markokullam on 06.05.2025.
  */
 
-public with sharing class ExpenseItemTriggerHandler {
+public class ExpenseItemTriggerHandler {
 
     @TestVisible
     private ExpenseService expenseService = new ExpenseService();
