@@ -4,6 +4,7 @@
 
 public with sharing class ExpenseItemTriggerHandler {
 
+    @TestVisible
     private ExpenseService expenseService = new ExpenseService();
 
     public void handle(Map<Id, Expense_Item__c> newExpenseItemsMap, Map<Id, Expense_Item__c> oldExpenseItemsMap, System.TriggerOperation operationType) {
