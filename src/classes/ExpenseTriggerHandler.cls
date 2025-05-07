@@ -4,6 +4,7 @@
 
 public class ExpenseTriggerHandler {
 
+    @TestVisible
     private ExpenseService expenseService = new ExpenseService();
 
     public void handle(Map<Id, Expense__c> newExpensesMap, Map<Id, Expense__c> oldExpensesMap, System.TriggerOperation operationType) {

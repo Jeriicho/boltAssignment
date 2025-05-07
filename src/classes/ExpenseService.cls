@@ -23,7 +23,8 @@ public virtual class ExpenseService {
         this.recalculateExpenses(expensesAndExpenseItemsToRecalculate);
     }
 
-    public List<Expense__c> getExpensesWithExpenseItems(Set<Id> expenseIds) {
+    @TestVisible
+    private List<Expense__c> getExpensesWithExpenseItems(Set<Id> expenseIds) {
         if (expenseIds.isEmpty()) {
             return new List<Expense__c>();
         }
@@ -34,6 +35,7 @@ public virtual class ExpenseService {
         ];
     }
 
+    @TestVisible
     private void recalculateExpenses(List<Expense__c> expenses, Map<Id, Expense__c> newExpensesByIds) {
         for (Expense__c expense : expenses) {
             Expense__c newExpense = newExpensesByIds.get(expense.Id);
@@ -48,6 +50,7 @@ public virtual class ExpenseService {
         }
     }
 
+    @TestVisible
     private void recalculateExpenses(List<Expense__c> expenses) {
         Set<Expense__c> expensesToUpdate = new Set<Expense__c>();
         for (Expense__c expense : expenses) {
@@ -68,6 +71,7 @@ public virtual class ExpenseService {
         update new List<Expense__c>(expensesToUpdate);
     }
 
+    @TestVisible
     private void recalculateExpenseItems(List<Expense__c> expenses, Map<Id, Expense__c> oldExpensesByIds) {
         List<Expense_Item__c> expenseItemsToUpdate = new List<Expense_Item__c>();
         for (Expense__c expense : expenses) {
