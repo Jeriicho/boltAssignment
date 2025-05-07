@@ -7,6 +7,7 @@
 - Did not add a separate ```Repository``` layer as the use-case was too simple.
 - Classes with suffix ```Service``` are responsible for business logic implementation and don't know anything about trigger contexts.
 - Tests are created using the ```Factory``` pattern. In a more complex scenario a generic ```Builder``` that all objects override should be preferred.
+- Maximum number of records that can be inserted, updated, deleted, undeleted in a single transaction is 10 000.
 
 ## To activate scheduler
 ```
