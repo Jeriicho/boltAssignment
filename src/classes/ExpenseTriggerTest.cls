@@ -14,8 +14,8 @@ private class ExpenseTriggerTest {
         Test.startTest();
         TestUtils.resetTriggerControl();
         update expenses;
-        List<Expense_Item__c> updatedExpenseItems = [SELECT Approved__c FROM Expense_Item__c WHERE Expense__c = :expenses.get(0).Id];
-        List<Expense__c> updatedExpenses = [SELECT Total_Amount__c FROM Expense__c WHERE Id = :expenses.get(0).Id];
+        List<Expense_Item__c> updatedExpenseItems = [SELECT Approved__c FROM Expense_Item__c WHERE Expense__c = :expenses];
+        List<Expense__c> updatedExpenses = [SELECT Total_Amount__c FROM Expense__c WHERE Id IN :expenses];
         Test.stopTest();
         System.assertEquals(10, updatedExpenses.get(0).Total_Amount__c);
         for (Expense_Item__c expenseItem : updatedExpenseItems) {
@@ -32,8 +32,8 @@ private class ExpenseTriggerTest {
         Test.startTest();
         TestUtils.resetTriggerControl();
         update expenses;
-        List<Expense_Item__c> updatedExpenseItems = [SELECT Approved__c FROM Expense_Item__c WHERE Expense__c = :expenses.get(0).Id];
-        List<Expense__c> updatedExpenses = [SELECT Total_Amount__c FROM Expense__c WHERE Id = :expenses.get(0).Id];
+        List<Expense_Item__c> updatedExpenseItems = [SELECT Approved__c FROM Expense_Item__c WHERE Expense__c IN :expenses];
+        List<Expense__c> updatedExpenses = [SELECT Total_Amount__c FROM Expense__c WHERE Id IN :expenses];
         Test.stopTest();
         System.assertEquals(0, updatedExpenses.get(0).Total_Amount__c);
         for (Expense_Item__c expenseItem : updatedExpenseItems) {

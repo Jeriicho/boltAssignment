@@ -14,7 +14,7 @@ public with sharing class ExpenseItemTriggerHandler {
                 || operationType == System.TriggerOperation.AFTER_UNDELETE) {
             if (!TriggerControl.hasRun) {
                 TriggerControl.hasRun = true;
-                TriggerControl.isInitializedByChildren = true;
+                TriggerControl.summarizationShouldBeSkipped = true;
                 this.expenseService.processExpenseItemFieldChanges(newExpenseItemsMap, oldExpenseItemsMap);
             }
         }

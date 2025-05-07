@@ -6,7 +6,7 @@ public class TestUtils {
 
     public static void resetTriggerControl() {
         TriggerControl.hasRun = false;
-        TriggerControl.isInitializedByChildren = false;
+        TriggerControl.summarizationShouldBeSkipped = false;
     }
 
 }

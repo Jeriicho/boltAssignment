@@ -10,7 +10,7 @@ public class ExpenseTriggerHandler {
     public void handle(Map<Id, Expense__c> newExpensesMap, Map<Id, Expense__c> oldExpensesMap, System.TriggerOperation operationType) {
         switch on operationType {
             when BEFORE_UPDATE {
-                if (!TriggerControl.isInitializedByChildren) {
+                if (!TriggerControl.summarizationShouldBeSkipped) {
                     this.expenseService.summarizeExpenseItemsAmountWhenAllApprovedChanged(newExpensesMap, oldExpensesMap);
                 }
             }

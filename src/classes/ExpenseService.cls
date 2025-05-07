@@ -5,20 +5,22 @@
 public virtual class ExpenseService {
 
     public void summarizeExpenseItemsAmountWhenAllApprovedChanged(Map<Id, Expense__c> newExpensesByIds, Map<Id, Expense__c> oldExpensesByIds) {
-        Set<Id> expensesToRecalculate = ObjectFieldHelper.detectObjectsToRecalculate(newExpensesByIds, oldExpensesByIds, 'All_Approved__c', 'Id');
+        Set<Id> expensesToRecalculate =
+                ObjectFieldHelper.detectObjectIdsToRecalculate(newExpensesByIds, oldExpensesByIds, 'All_Approved__c', 'Id');
         List<Expense__c> expensesAndExpenseItemsToRecalculate = this.getExpensesWithExpenseItems(expensesToRecalculate);
         this.recalculateExpenses(expensesAndExpenseItemsToRecalculate, newExpensesByIds);
     }
 
     public void updateApprovedFieldForExpenseItems(Map<Id, Expense__c> newExpensesByIds, Map<Id, Expense__c> oldExpensesByIds) {
-        Set<Id> expensesToRecalculate = ObjectFieldHelper.detectObjectsToRecalculate(newExpensesByIds, oldExpensesByIds, 'All_Approved__c', 'Id');
+        Set<Id> expensesToRecalculate =
+                ObjectFieldHelper.detectObjectIdsToRecalculate(newExpensesByIds, oldExpensesByIds, 'All_Approved__c', 'Id');
         List<Expense__c> expensesAndExpenseItemsToRecalculate = this.getExpensesWithExpenseItems(expensesToRecalculate);
         this.recalculateExpenseItems(expensesAndExpenseItemsToRecalculate, oldExpensesByIds);
     }
 
     public void processExpenseItemFieldChanges(Map<Id, Expense_Item__c> newExpenseItemsByIds, Map<Id, Expense_Item__c> oldExpenseItemsByIds) {
         Set<Id> expenseIdsToRecalculate =
-                ObjectFieldHelper.detectObjectsToRecalculate(newExpenseItemsByIds, oldExpenseItemsByIds, 'Approved__c', 'Expense__c');
+                ObjectFieldHelper.detectObjectIdsToRecalculate(newExpenseItemsByIds, oldExpenseItemsByIds, 'Approved__c', 'Expense__c');
         List<Expense__c> expensesAndExpenseItemsToRecalculate = this.getExpensesWithExpenseItems(expenseIdsToRecalculate);
         this.recalculateExpenses(expensesAndExpenseItemsToRecalculate);
     }
@@ -62,11 +64,15 @@ public virtual class ExpenseService {
                     totalAmount += expenseItem.Amount__c;
                 }
             }
-            if (!expense.Expense_Items__r.isEmpty()) {
-                expense.All_Approved__c = approved;
+            if (expense.All_Approved__c != approved || expense.Total_Amount__c != totalAmount) {
+                if (!expense.Expense_Items__r.isEmpty()) {
+                    expense.All_Approved__c = approved;
+                }
+                if (expense.Total_Amount__c != totalAmount) {
+                    expense.Total_Amount__c = totalAmount;
+                }
+                expensesToUpdate.add(expense);
             }
-            expense.Total_Amount__c = totalAmount;
-            expensesToUpdate.add(expense);
         }
         update new List<Expense__c>(expensesToUpdate);
     }

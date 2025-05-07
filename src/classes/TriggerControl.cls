@@ -5,6 +5,6 @@
 public class TriggerControl {
 
     public static Boolean hasRun = false;
-    public static Boolean isInitializedByChildren = false;
+    public static Boolean summarizationShouldBeSkipped = false;
 
 }

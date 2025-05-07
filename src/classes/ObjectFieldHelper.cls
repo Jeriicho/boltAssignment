@@ -4,7 +4,7 @@
 
 public class ObjectFieldHelper {
 
-    public static Set<Id> detectObjectsToRecalculate(
+    public static Set<Id> detectObjectIdsToRecalculate(
             Map<Id, SObject> newObjectsByIds,
             Map<Id, SObject> oldObjectsByIds,
             String checkboxFieldApiName,
